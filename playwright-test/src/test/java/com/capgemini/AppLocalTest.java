@@ -107,5 +107,25 @@ public class AppLocalTest
         siblingTitle.getByPlaceholder("Email").click();
 
         assertTrue(true);
+
+        Locator anotherSiblingTitle = page.locator("nb-card").filter(new Locator.FilterOptions().setHasText("Basic form"));
+
+        anotherSiblingTitle.getByRole(AriaRole.TEXTBOX, new Locator.GetByRoleOptions().setName("Password")).click();
+
+        assertTrue(true);
+
+        Locator statusDanger = page.locator("nb-card").filter(new Locator.FilterOptions().setHas(page.locator(".status-danger")));
+
+        statusDanger.click();
+
+        statusDanger.getByRole(AriaRole.TEXTBOX, new Locator.GetByRoleOptions().setName("Email")).click();
+
+        assertTrue(true);
+
+        Locator checkBoxLocator = page.locator("nb-card").filter(new Locator.FilterOptions().setHas(page.locator("nb-checkbox").filter(new Locator.FilterOptions().setHasText("Remember me")))).nth(1);
+
+        checkBoxLocator.getByRole(AriaRole.TEXTBOX, new Locator.GetByRoleOptions().setName("Password")).click();
+
+        assertTrue(true);
     }
 }
