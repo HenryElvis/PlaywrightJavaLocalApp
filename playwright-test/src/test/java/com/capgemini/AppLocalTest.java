@@ -15,8 +15,7 @@ import com.microsoft.playwright.Playwright;
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
 import com.microsoft.playwright.options.AriaRole;
 
-public class AppLocalTest 
-{
+public class AppLocalTest {
     private static Playwright playwright;
     private static Browser browser;
     private Page page;
@@ -51,8 +50,7 @@ public class AppLocalTest
 
     // ### UTILS ###
 
-    void clickOnText(String _text)
-    {
+    void clickOnText(String _text) {
         page.getByText(_text).click();
     }
 
@@ -70,21 +68,18 @@ public class AppLocalTest
     }
 
     @Test
-    void clickOnForms()
-    {
+    void clickOnForms() {
         clickOnText("Forms");
     }
 
     @Test
-    void clickOnFormLayout()
-    {
+    void clickOnFormLayout() {
         clickOnText("Forms");
         clickOnText("Form Layout");
     }
 
     @Test
-    void testChildElement()
-    {
+    void testChildElement() {
         clickOnText("Forms");
         clickOnText("Form Layout");
         page.locator("nb-card nb-radio :text-is('Option 2')").click();
@@ -97,8 +92,7 @@ public class AppLocalTest
     }
 
     @Test
-    void testParentElement()
-    {
+    void testParentElement() {
         clickOnText("Forms");
         clickOnText("Form Layout");
 
@@ -108,13 +102,15 @@ public class AppLocalTest
 
         assertTrue(true);
 
-        Locator anotherSiblingTitle = page.locator("nb-card").filter(new Locator.FilterOptions().setHasText("Basic form"));
+        Locator anotherSiblingTitle = page.locator("nb-card")
+                .filter(new Locator.FilterOptions().setHasText("Basic form"));
 
         anotherSiblingTitle.getByRole(AriaRole.TEXTBOX, new Locator.GetByRoleOptions().setName("Password")).click();
 
         assertTrue(true);
 
-        Locator statusDanger = page.locator("nb-card").filter(new Locator.FilterOptions().setHas(page.locator(".status-danger")));
+        Locator statusDanger = page.locator("nb-card")
+                .filter(new Locator.FilterOptions().setHas(page.locator(".status-danger")));
 
         statusDanger.click();
 
@@ -122,9 +118,12 @@ public class AppLocalTest
 
         assertTrue(true);
 
-        Locator checkBoxLocator = page.locator("nb-card").filter(new Locator.FilterOptions().setHas(page.locator("nb-checkbox").filter(new Locator.FilterOptions().setHasText("Remember me")))).nth(1);
+        Locator checkBoxLocator = page.locator("nb-card")
+                .filter(new Locator.FilterOptions().setHas(
+                        page.locator("nb-checkbox").filter(new Locator.FilterOptions().setHasText("Remember me"))))
+                .nth(1);
 
-        checkBoxLocator.getByRole(AriaRole.TEXTBOX, new Locator.GetByRoleOptions().setName("Password")).click();
+        checkBoxLocator.getByRole(AriaRole.TEXTBOX, new Locator.GetByRoleOptions().setName("Password")).fill("Test");
 
         assertTrue(true);
     }
