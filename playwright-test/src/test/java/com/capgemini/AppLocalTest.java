@@ -7,15 +7,20 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import com.microsoft.playwright.Browser;
 import com.microsoft.playwright.BrowserType;
 import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.Playwright;
+import com.microsoft.playwright.Locator.FilterOptions;
+
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
 import com.microsoft.playwright.options.AriaRole;
 
 public class AppLocalTest {
+
     private static Playwright playwright;
     private static Browser browser;
     private Page page;
@@ -49,13 +54,11 @@ public class AppLocalTest {
     }
 
     // ### UTILS ###
-
     void clickOnText(String _text) {
         page.getByText(_text).click();
     }
 
     // ### TESTS ###
-
     @Test
     void testTitle() {
         String title = page.title();
@@ -126,5 +129,19 @@ public class AppLocalTest {
         checkBoxLocator.getByRole(AriaRole.TEXTBOX, new Locator.GetByRoleOptions().setName("Password")).fill("Test");
 
         assertTrue(true);
+    }
+
+    @Test
+    void extractingValue() {
+        clickOnText("Forms");
+        clickOnText("Form Layout");
+
+        Locator elementLocator = page.locator("nb-card").filter(new Locator.FilterOptions().setHasText("Block form")).locator("button");
+
+        assertTrue(elementLocator.textContent().equals("Submit"));
+
+        List<String> allRadio = page.locator("nb-card").filter(new FilterOptions().setHasText("Using the Grid")).locator("nb-radio").allTextContents();
+
+        assertTrue(!allRadio.contains("Option"));
     }
 }
