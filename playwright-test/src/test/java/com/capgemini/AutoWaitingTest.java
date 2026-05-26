@@ -10,10 +10,9 @@ import org.junit.jupiter.api.Test;
 import com.microsoft.playwright.Browser;
 import com.microsoft.playwright.BrowserType;
 import com.microsoft.playwright.Locator;
-import com.microsoft.playwright.Locator.FilterOptions;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.Playwright;
-import com.microsoft.playwright.options.AriaRole;
+import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
 
 public class AutoWaitingTest {
     
@@ -54,17 +53,17 @@ public class AutoWaitingTest {
     @Test
     void testAutoWait()
     {
-        Locator buttonAjaxElement = page.getByRole(AriaRole.BUTTON).filter(new FilterOptions().setHasText("Button Triggering AJAX Request"));
+        // Locator buttonAjaxElement = page.getByRole(AriaRole.BUTTON).filter(new FilterOptions().setHasText("Button Triggering AJAX Request"));
 
-        // Locator buttonAjaxElement = page.locator("#ajaxButton");
+        Locator buttonAjaxElement = page.locator("#ajaxButton");
 
         buttonAjaxElement.click();
 
-        // Locator waitingElement = page.locator(".bg-success");
+        Locator waitingElement = page.locator(".bg-success");
 
-        // waitingElement.waitFor();
+        waitingElement.waitFor();
 
-        // assertThat(waitingElement).isVisible();
+        assertThat(waitingElement).isVisible();
         
         assertTrue(true);
     }
