@@ -156,4 +156,54 @@ public class AppLocalTest {
 
         assertTrue(true);
     }
+
+    @Test
+    void radioButton()
+    {
+        clickOnText("Forms");
+        clickOnText("Form Layout");
+
+        Locator radios = page.locator("nb-card").filter(new FilterOptions().setHasText("Using the Grid")).getByRole(AriaRole.RADIO, new Locator.GetByRoleOptions().setName("Option 1"));
+
+        radios.check();
+
+        assertTrue(radios.isChecked());
+    }
+
+    @Test
+    void checkboxes()
+    {
+        clickOnText("Modal & Overlays");
+        clickOnText("Toastr");
+
+        Locator checkbox = page.locator("nb-card").filter(new FilterOptions().setHasText("Toaster configuration")).getByRole(AriaRole.CHECKBOX, new Locator.GetByRoleOptions().setName("Hide on click"));
+
+        checkbox.setChecked(false, new Locator.SetCheckedOptions().setForce(true));
+
+        assertTrue(!checkbox.isChecked());
+    }
+
+    @Test
+    void listAndDropdown()
+    {
+        Locator dropdown = page.locator("ngx-header nb-select");
+
+        dropdown.click();
+
+        Locator optionList = page.locator("nb-option-list nb-option");
+        optionList.filter(new FilterOptions().setHasText("Cosmic")).click();
+
+        assertTrue(true);
+    }
+
+    @Test
+    void tooltip()
+    {
+        clickOnText("Modal & Overlays");
+        clickOnText("Tooltip");
+
+        page.locator("nb-card").filter(new FilterOptions().setHasText("Tooltip Placements")).getByRole(AriaRole.BUTTON, new Locator.GetByRoleOptions().setName("TOP")).hover();
+
+        assertTrue(true);
+    }
 }
