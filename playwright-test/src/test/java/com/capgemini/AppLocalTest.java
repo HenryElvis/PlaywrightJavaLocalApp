@@ -143,4 +143,17 @@ public class AppLocalTest {
 
         assertTrue(!allRadio.contains("Option"));
     }
+
+    @Test
+    void inputText()
+    {
+        clickOnText("Forms");
+        clickOnText("Form Layout");
+
+        Locator input = page.locator("nb-card").filter(new FilterOptions().setHasText("Using the Grid")).getByRole(AriaRole.TEXTBOX, new Locator.GetByRoleOptions().setName("Email"));
+
+        input.fill("test@test.com");
+
+        assertTrue(true);
+    }
 }
