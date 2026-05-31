@@ -1,5 +1,6 @@
 package com.capgemini;
 
+import java.nio.file.Paths;
 import java.util.List;
 
 import org.junit.jupiter.api.AfterAll;
@@ -8,13 +9,18 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInfo;
 
 import com.microsoft.playwright.Browser;
+import com.microsoft.playwright.BrowserContext;
 import com.microsoft.playwright.BrowserType;
 import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Locator.FilterOptions;
+import com.microsoft.playwright.Locator.GetByRoleOptions;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.Playwright;
+import com.microsoft.playwright.Tracing;
+
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
 import com.microsoft.playwright.options.AriaRole;
 
@@ -22,6 +28,7 @@ public class AppLocalTest {
 
     private static Playwright playwright;
     private static Browser browser;
+    private static BrowserContext context;
     private Page page;
 
     @BeforeAll
@@ -32,12 +39,24 @@ public class AppLocalTest {
 
     @BeforeEach
     void createContextAndPage() {
+        this.context = browser.newContext();
+
+        this.context.tracing().start(new Tracing.StartOptions()
+            .setScreenshots(true)
+            .setSnapshots(true)
+            .setSources(true));
+
         this.page = browser.newPage();
         this.page.navigate("http://localhost:4200/pages/iot-dashboard");
     }
 
     @AfterEach
-    void closeContext() {
+    void closeContext(TestInfo testInfo) {
+        String testName = testInfo.getDisplayName().replaceAll(" ", "_");
+        
+        context.tracing().stop(new Tracing.StopOptions()
+            .setPath(Paths.get("traces/" + testName + ".zip")));
+
         this.page.close();
     }
 
@@ -205,5 +224,57 @@ public class AppLocalTest {
         page.locator("nb-card").filter(new FilterOptions().setHasText("Tooltip Placements")).getByRole(AriaRole.BUTTON, new Locator.GetByRoleOptions().setName("TOP")).hover();
 
         assertTrue(true);
+    }
+
+    @Test
+    void dialogBox()
+    {
+        clickOnText("Modal & Overlays");
+        clickOnText("Dialog");
+
+        Locator dialogBoxElement = page.locator("nb-card").filter(new FilterOptions().setHasText("Open Dialog")).getByRole(AriaRole.BUTTON, new GetByRoleOptions().setName("OPEN DIALOG WITH TEMPLATE"));
+
+        dialogBoxElement.click();
+
+        assertTrue(true);
+    }
+
+    @Test
+    void alertBox()
+    {
+        clickOnText("Tables & Data");
+        clickOnText("Smart Table");
+
+        page.getByRole(AriaRole.TABLE).locator("tr").filter(new FilterOptions().setHasText("mdo@gmail.com")).locator(".nb-trash").click();
+    }
+
+    @Test
+    void webTable()
+    {
+        clickOnText("Tables & Data");
+        clickOnText("Smart Table");
+
+        Locator targetRow = page.getByRole(AriaRole.ROW, new Page.GetByRoleOptions().setName("twitter@outlook.com"));
+
+        targetRow.locator(".nb-edit").click();
+
+        Locator targetInput = page.locator("input-editor").getByPlaceholder("Age");
+
+        targetInput.clear();
+        targetInput.fill("24");
+
+        page.pause();
+
+        page.locator(".nb-checkmark").click();
+
+        page.locator(".ng2-smart-pagination-nav").getByText("2").click();
+
+        page.pause();
+
+        Locator targetRowId = page.getByRole(AriaRole.ROW, new Page.GetByRoleOptions().setName("11")).filter(new FilterOptions().setHas(page.locator("td").nth(1).getByText("11")));
+
+        targetRowId.locator(".nb-edit").click();
+
+        page.pause();
     }
 }
