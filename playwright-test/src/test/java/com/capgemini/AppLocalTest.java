@@ -20,7 +20,6 @@ import com.microsoft.playwright.Locator.GetByRoleOptions;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.Playwright;
 import com.microsoft.playwright.Tracing;
-
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
 import com.microsoft.playwright.options.AriaRole;
 
@@ -276,5 +275,19 @@ public class AppLocalTest {
         targetRowId.locator(".nb-edit").click();
 
         page.pause();
+    }
+
+    @Test
+    void datePicker()
+    {
+        clickOnText("Forms");
+        clickOnText("Datepicker");
+
+        Locator calendarInputField = page.getByPlaceholder("Form Picker");
+        calendarInputField.click();
+        
+        page.locator("[class=\"day-cell ng-star-inserted\"]").getByText("3", new Locator.GetByTextOptions().setExact(true)).click();
+
+        assertThat(calendarInputField).hasValue("Jun 3, 2026");
     }
 }
