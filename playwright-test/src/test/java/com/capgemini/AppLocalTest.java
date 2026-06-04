@@ -290,4 +290,14 @@ public class AppLocalTest {
 
         assertThat(calendarInputField).hasValue("Jun 3, 2026");
     }
+
+    @Test
+    void slider()
+    {
+        Locator circleLocator = page.locator("[ng-reflect-tab-title=\"Temperature\"] ngx-temperature-dragger circle");
+
+        circleLocator.evaluate("element => { element.setAttribute('cx', '120'); element.setAttribute('cy', '80');}");
+
+        circleLocator.click();
+    }
 }
