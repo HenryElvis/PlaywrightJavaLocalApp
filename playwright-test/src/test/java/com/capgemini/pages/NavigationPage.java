@@ -1,3 +1,5 @@
+package com.capgemini.pages;
+
 import com.microsoft.playwright.Page;
 
 public class NavigationPage {
