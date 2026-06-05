@@ -1,2 +1,7 @@
-C:\DEV\Playwright\playwright-test\src\test\java\com\capgemini\AppLocalTest.java
-C:\DEV\Playwright\playwright-test\src\test\java\com\capgemini\AutoWaitingTest.java
+C:\DEV\Playwright\playwright-test\src\test\java\com\capgemini\base\BaseTest.java
+C:\DEV\Playwright\playwright-test\src\test\java\com\capgemini\pages\NavigationPage.java
+C:\DEV\Playwright\playwright-test\src\test\java\com\capgemini\tests\AppLocalTest.java
+C:\DEV\Playwright\playwright-test\src\test\java\com\capgemini\tests\AutoWaitingTest.java
+C:\DEV\Playwright\playwright-test\src\test\java\com\capgemini\tests\Navigation.java
+C:\DEV\Playwright\playwright-test\src\test\java\com\capgemini\tests\PageObjectModel.java
+C:\DEV\Playwright\playwright-test\src\test\java\com\capgemini\tools\BaseTools.java

@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import com.capgemini.pages.NavigationPage;
 import com.microsoft.playwright.Browser;
 import com.microsoft.playwright.BrowserType;
 import com.microsoft.playwright.Page;
@@ -26,7 +27,7 @@ public class PageObjectModel {
     @BeforeEach
     void createContextAndPage() {
         this.page = browser.newPage();
-        this.page.navigate("http://uitestingplayground.com/ajax");
+        this.page.navigate("http://localhost:4200/pages/iot-dashboard");
     }
 
     @AfterEach
@@ -49,5 +50,6 @@ public class PageObjectModel {
     void testFormLayout()
     {
         NavigationPage navPage = new NavigationPage(page);
+        navPage.formLayoutPage();
     }
 }
