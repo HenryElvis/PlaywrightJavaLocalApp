@@ -1,4 +1,4 @@
-package com.capgemini;
+package com.capgemini.tests;
 
 import java.nio.file.Paths;
 import java.util.List;
