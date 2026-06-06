@@ -15,7 +15,7 @@ public class NavigationPage {
         tools = new BaseTools(page);
     }
 
-    public void formLayoutPage()
+    public void navToformLayoutPage()
     {
         selectMenuItem("Forms");
         tools.clickOnText("Form Layout");
