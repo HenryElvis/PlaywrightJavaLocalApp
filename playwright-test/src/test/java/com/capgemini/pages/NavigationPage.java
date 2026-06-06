@@ -1,6 +1,7 @@
 package com.capgemini.pages;
 
 import com.capgemini.tools.BaseTools;
+import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
 
 public class NavigationPage {
@@ -16,7 +17,21 @@ public class NavigationPage {
 
     public void formLayoutPage()
     {
-        tools.clickOnText("Forms");
+        selectMenuItem("Forms");
         tools.clickOnText("Form Layout");
+    }
+
+    public void datepicker()
+    {
+        selectMenuItem("Forms");
+        tools.clickOnText("Datepicker");
+    }
+
+    private void selectMenuItem(String _menuItem)
+    {
+        Locator item = page.getByTitle(_menuItem);
+
+        if (item.getAttribute("aria-expanded").equals("false"))
+            tools.clickOnText("Forms");
     }
 }
