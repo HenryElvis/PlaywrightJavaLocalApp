@@ -14,7 +14,7 @@ public class PageObjectModel extends BaseTest {
     {
         navPage = new NavigationPage(getPage());
 
-        navPage.formLayoutPage();
+        navPage.navToformLayoutPage();
         navPage.datepicker();
     }
 }
