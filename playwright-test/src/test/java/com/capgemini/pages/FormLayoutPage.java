@@ -32,13 +32,13 @@ public class FormLayoutPage {
         containerGridCard.getByRole(AriaRole.BUTTON, new Locator.GetByRoleOptions().setName("Sign in")).click();
     }
 
-    public void fillingInlineFormWithEmailAndPassword(String _name, String _email, Boolean rememberUser)
+    public void fillingInlineFormWithEmailAndPassword(String _name, String _email, Boolean _rememberUser)
     {
         containerInlineFormCard.getByPlaceholder("Jane Doe").fill(_name);
 
         containerInlineFormCard.getByRole(AriaRole.TEXTBOX, new Locator.GetByRoleOptions().setName("Email")).fill(_email);
 
-        containerInlineFormCard.getByRole(AriaRole.CHECKBOX).check(new CheckOptions().setForce(rememberUser));
+        containerInlineFormCard.getByRole(AriaRole.CHECKBOX).check(new CheckOptions().setForce(_rememberUser));
 
         containerInlineFormCard.getByRole(AriaRole.BUTTON, new Locator.GetByRoleOptions().setName("Submit")).click();
     }

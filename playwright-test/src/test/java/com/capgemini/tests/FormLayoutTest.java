@@ -3,34 +3,25 @@ package com.capgemini.tests;
 import org.junit.jupiter.api.Test;
 
 import com.capgemini.base.BaseTest;
-import com.capgemini.pages.FormLayoutPage;
-import com.capgemini.pages.NavigationPage;
+import com.capgemini.tools.PageManager;
 
 public class FormLayoutTest extends BaseTest {
-
-    private NavigationPage navPage;
-    
-    FormLayoutPage formPage;
 
     @Test
     void testFillingForm()
     {
-        navPage = new NavigationPage(getPage());
-        navPage.navToformLayoutPage();
+        PageManager pageManager = new PageManager(getPage());
 
-        formPage = new FormLayoutPage(getPage());
-
-        formPage.fillingFormWithEmailAndPassword("test@test.com", "password13", "Option 1");
+        pageManager.GetNavPage().navToformLayoutPage();
+        pageManager.GetFormLayoutPage().fillingFormWithEmailAndPassword("test@test.com", "password13", "Option 1");
     }
 
     @Test
     void testFillingInlineForm()
     {
-        navPage = new NavigationPage(getPage());
-        navPage.navToformLayoutPage();
+        PageManager pageManager = new PageManager(getPage());
 
-        formPage = new FormLayoutPage(getPage());
-
-        formPage.fillingInlineFormWithEmailAndPassword("Anakin Skywalker", "test@test.com", true);
+        pageManager.GetNavPage().navToformLayoutPage();
+        pageManager.GetFormLayoutPage().fillingInlineFormWithEmailAndPassword("Anakin Skywalker", "test@test.com", true);
     }
 }
